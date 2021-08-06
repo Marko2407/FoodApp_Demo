@@ -1,5 +1,6 @@
 package com.example.foodapp_demo
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,21 +8,34 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.*
 
-open class MyAdapter(private val context: Context, private val title: ArrayList<String>) : Adapter<MyAdapter.MyViewHolder>() {
+open class MyAdapter(private val context: Context, private val title: ArrayList<String>,private val desc: ArrayList<String>,private val image: ArrayList<Int>) : Adapter<MyAdapter.MyViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyAdapter.MyViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.row, parent, false)
+
+
+
         return MyViewHolder(view)
+
+
     }
 
-    override fun onBindViewHolder(holder: MyAdapter.MyViewHolder, position: Int) {
-       holder.textViewT.text = title[position]
+    override fun onBindViewHolder(holder: MyAdapter.MyViewHolder, @SuppressLint("RecyclerView") position: Int) {
+       holder.textViewD.text = desc[position]
+        holder.textViewTitle.text = title[position]
+        holder.foodImage.setImageResource(image[position])
 
-        Log.i("{$position}","Marko ")
+       holder.itemView.setOnClickListener(object : View.OnClickListener{
+           override fun onClick(p0: View?) {
+               Toast.makeText(context, "Odabrao si ${desc[position]}", Toast.LENGTH_SHORT).show()
+           }
+       })
+
     }
 
     override fun getItemCount(): Int {
@@ -29,10 +43,9 @@ open class MyAdapter(private val context: Context, private val title: ArrayList<
     }
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var textViewT: TextView = itemView.findViewById(R.id.title1)
-
-
-
+        var textViewD: TextView = itemView.findViewById(R.id.title1)
+        var foodImage: ImageView = itemView.findViewById(R.id.img)
+        var textViewTitle: TextView = itemView.findViewById(R.id.titleMenu)
     }
 }
 
