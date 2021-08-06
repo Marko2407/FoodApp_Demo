@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">FoodApp_Demo</string>
+
+    <string-array name="food">
+        <item>Piletina</item>
+        <item>Riža</item>
+        <item>juha</item>
+    </string-array>
+
+    <string-array name="opis">
+        <item>Piletina meso</item>
+        <item>Riža prilog</item>
+        <item>juha topla</item>
+    </string-array>
 </resources>
