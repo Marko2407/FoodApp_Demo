@@ -2,17 +2,13 @@ package com.example.foodapp_demo.viewModel
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
-import androidx.annotation.Nullable
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodapp_demo.R
 import com.example.foodapp_demo.adapters.MyAdapter
+import com.example.foodapp_demo.models.Food
 import com.example.foodapp_demo.models.dataClass
-import com.example.foodapp_demo.repositories.FoodRepository
 
 
 class MainActivity : AppCompatActivity() {
@@ -46,10 +42,11 @@ class MainActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recyclerView)
         adapter = MyAdapter(this, titles,description, images)
         mMainActivityViewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
-       // mMainActivityViewModel.getData().observe()  provjeriti što kako zasto
+       // mMainActivityViewModel.getData().observe(this, Observer {})
        recyclerView.layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL, false)
         recyclerView.adapter = adapter
 
 
     }
+
 }

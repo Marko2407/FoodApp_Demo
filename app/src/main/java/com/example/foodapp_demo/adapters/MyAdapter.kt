@@ -11,9 +11,8 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.*
 import com.example.foodapp_demo.R
-import com.example.foodapp_demo.models.dataClass
 
-open class MyAdapter(private val context: Context, private val title: ArrayList<String>,private val desc: ArrayList<String>,private val image: ArrayList<Int>) : Adapter<MyAdapter.MyViewHolder>() {
+open class MyAdapter(private val context: Context, private val title: ArrayList<String>, private val desc: ArrayList<String>, private val image: ArrayList<Int>) : Adapter<MyAdapter.MyViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -28,19 +27,21 @@ open class MyAdapter(private val context: Context, private val title: ArrayList<
 
     override fun onBindViewHolder(holder: MyViewHolder, @SuppressLint("RecyclerView") position: Int) {
        holder.textViewD.text = desc[position]
-        holder.textViewTitle.text = title[position]
+        holder.textViewTitle.text = title[position].toString()
         holder.foodImage.setImageResource(image[position])
 
-       holder.itemView.setOnClickListener(object : View.OnClickListener{
-           override fun onClick(p0: View?) {
-               Toast.makeText(context, "Odabrao si ${desc[position]}", Toast.LENGTH_SHORT).show()
-           }
-       })
+       holder.itemView.setOnClickListener {
+           Toast.makeText(
+               context,
+               "Odabrao si ${title[position]}",
+               Toast.LENGTH_SHORT
+           ).show()
+       }
 
     }
 
     override fun getItemCount(): Int {
-       return 5
+       return image.size
     }
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
