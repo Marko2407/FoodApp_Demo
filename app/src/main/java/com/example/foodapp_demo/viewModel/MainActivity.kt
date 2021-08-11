@@ -18,31 +18,13 @@ class MainActivity : AppCompatActivity() {
     lateinit var mMainActivityViewModel : MainActivityViewModel
 
 
-     var titles = arrayListOf("Meni 1", "Meni 2","Meni 3","Meni 4","Meni 5",)
-     var images = arrayListOf<Int>(
-         R.drawable.food1,
-         R.drawable.fries,
-         R.drawable.hamb,
-         R.drawable.mars,
-         R.drawable.milka
-     )
-
-
-
-
-
-    var description = arrayListOf("Snicker -  is a chocolate bar made by the American company Mars, Incorporated, consisting of nougat topped with caramel and peanuts that has been enrobed in milk chocolate.The annual global sales of Snickers was 2 billion as of 2004","Fries","hamburger","Mars", "Milka")
-//    lateinit var s1: String
-//    lateinit var s2: String
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         recyclerView = findViewById(R.id.recyclerView)
-        adapter = MyAdapter(this, titles,description, images)
+        adapter = MyAdapter(this, Food.Food)
         mMainActivityViewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
-       // mMainActivityViewModel.getData().observe(this, Observer {})
        recyclerView.layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL, false)
         recyclerView.adapter = adapter
 

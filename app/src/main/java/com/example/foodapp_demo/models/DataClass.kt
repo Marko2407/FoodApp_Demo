@@ -1,11 +1,13 @@
 package com.example.foodapp_demo.models
 
-class dataClass(title: String, description : String, image : Int){
+import androidx.annotation.NonNull
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-    val meni = "$title $description $image"
-     val meni1: String
-         get() {
-             return meni
-         }
+@Entity(tableName = "food_table")
+data class dataClass(
+                    @PrimaryKey @NonNull var title: String ="",
+                     var description: String = "",
+                     var image: Int = 0)
 
-}
+
