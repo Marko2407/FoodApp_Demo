@@ -12,40 +12,40 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.*
 import com.example.foodapp_demo.R
+import com.example.foodapp_demo.models.Avatar
 import com.example.foodapp_demo.models.Food
+import com.example.foodapp_demo.models.FoodImages
 import com.example.foodapp_demo.models.dataClass
 
-open class MyAdapter(private val context: Context, private val title: List<dataClass>) : Adapter<MyAdapter.MyViewHolder>() {
+open class MyAdapter(private val context: Context, private val title: List<dataClass>,private val images: List<Avatar>) :
+    Adapter<MyAdapter.MyViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.row, parent, false)
-
-
-
         return MyViewHolder(view)
-
-
     }
 
-    override fun onBindViewHolder(holder: MyViewHolder, @SuppressLint("RecyclerView") position: Int) {
-       holder.textViewD.text = Food.Food[position].description
+    override fun onBindViewHolder(
+        holder: MyViewHolder,
+        @SuppressLint("RecyclerView") position: Int
+    ) {
+        holder.textViewD.text = Food.Food[position].description
         holder.textViewTitle.text = Food.Food[position].title
-        holder.foodImage.setImageResource(Food.Food[position].image)
+        holder.foodImage.setImageResource(FoodImages.foodImages[position].imageFood)
 
-       holder.itemView.setOnClickListener {
-           Toast.makeText(
-               context,
-               "Odabrao si ${Food.Food[position].title}",
-               Toast.LENGTH_SHORT
-           ).show()
-          Log.i("Marko je kralj", Food.Food[position].title)
-       }
+        holder.itemView.setOnClickListener {
+            Toast.makeText(
+                context,
+                "Odabrao si ${Food.Food[position].title}",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
 
     }
 
     override fun getItemCount(): Int {
-       return title.size
+        return title.size
     }
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

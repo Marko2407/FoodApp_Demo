@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">FoodApp_Demo</string>
+    <string name="add_item">Add item</string>
+    <string name="avatar">avatar</string>
 
     <string-array name="food">
         <item>Piletina</item>

@@ -10,7 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodApp_Demo">
         <activity
-            android:name=".viewModel.MainActivity"
+            android:name=".View.AddFoodActivity"
+            android:exported="true" />
+        <activity
+            android:name=".View.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

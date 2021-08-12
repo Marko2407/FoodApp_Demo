@@ -9,14 +9,14 @@ class RoomRepository: FoodRepository {
 
     private val allFood: LiveData<List<dataClass>> = foodDao.getAllFood()
 
-    private class InsertAsyncTask internal constructor(private val dao: FoodDao): AsyncTask<dataClass,Void,Void>(){
+    private class InsertAsyncTask(private val dao: FoodDao): AsyncTask<dataClass,Void,Void>(){
         override fun doInBackground(vararg p0: dataClass?): Void? {
             p0[0]?.let { dao.insert(it) }
             return null
         }
 
     }
-    private class DeleteAsyncTask internal constructor(private val dao: FoodDao): AsyncTask<dataClass,Void,Void>(){
+    private class DeleteAsyncTask(private val dao: FoodDao): AsyncTask<dataClass,Void,Void>(){
         override fun doInBackground(vararg p0: dataClass?): Void? {
             dao.clearFood(*p0 as Array<out dataClass>)
             return null
