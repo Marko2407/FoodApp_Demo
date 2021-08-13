@@ -31,7 +31,7 @@ class AddFoodActivity : AppCompatActivity() {
     private fun configureLiveDataObservers() {
 
         val imageView:ImageView = findViewById(R.id.imageView)
-        imageView.setImageResource(R.drawable.hamb)
+        imageView.setImageResource(R.drawable.food_add)
         viewModel.getFoodLiveData().observe(this, androidx.lifecycle.Observer { food ->
             food?.let {
                imageView.setImageResource(R.drawable.food1)
