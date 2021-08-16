@@ -1,39 +1,25 @@
 package com.example.foodapp_demo.models
 
-import android.os.AsyncTask
 import androidx.lifecycle.LiveData
-import com.example.foodapp_demo.app.FoodmonApplication
+import com.example.foodapp_demo.app.App
+import java.util.concurrent.Executor
 
-class RoomRepository: FoodRepository {
-    private val foodDao: FoodDao = FoodmonApplication.database.foodDao()
+class RoomRepository(private val executor: Executor) : FoodRepository {
 
-    private val allFood: LiveData<List<dataClass>> = foodDao.getAllFood()
+    private val foodDao: FoodDao = App.database.foodDao()
+    private val allFood: LiveData<List<DataClass>> = foodDao.getAllFood()
 
-    private class InsertAsyncTask(private val dao: FoodDao): AsyncTask<dataClass,Void,Void>(){
-        override fun doInBackground(vararg p0: dataClass?): Void? {
-            p0[0]?.let { dao.insert(it) }
-            return null
+    override fun saveFood(food: DataClass) {
+        executor.execute {
+            foodDao.insert(food)
         }
-
-    }
-    private class DeleteAsyncTask(private val dao: FoodDao): AsyncTask<dataClass,Void,Void>(){
-        override fun doInBackground(vararg p0: dataClass?): Void? {
-            dao.clearFood(*p0 as Array<out dataClass>)
-            return null
-        }
-    }
-
-    override fun saveFood(food: dataClass) {
-       InsertAsyncTask(foodDao).execute(food)
     }
 
     override fun getAllFood() = allFood
 
-
     override fun clearAllFood() {
-        val foodArray = allFood.value?.toTypedArray()
-        if (foodArray != null){
-            DeleteAsyncTask(foodDao).execute(*foodArray)
+        executor.execute {
+            foodDao.clearFood()
         }
     }
 

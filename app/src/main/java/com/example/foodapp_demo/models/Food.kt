@@ -3,14 +3,14 @@ package com.example.foodapp_demo.models
 import com.example.foodapp_demo.R
 
 object Food {
-    val Food: List<dataClass> by lazy {
-        val food = mutableListOf<dataClass>()
+    val Food: List<DataClass> by lazy {
+        val food = mutableListOf<DataClass>()
 
-        food.add( dataClass("Snicker", "ja sam snicker", R.drawable.food1))
-        food.add( dataClass("Fries", "ja sam Fries", R.drawable.fries))
-        food.add( dataClass("Hamburger", "ja sam Hamburger", R.drawable.hamb))
-        food.add( dataClass("Mars", "ja sam Mars", R.drawable.mars))
-        food.add( dataClass("Milka", "ja sam Milka", R.drawable.milka))
+        food.add( DataClass("Snicker", "ja sam snicker", R.drawable.food1))
+        food.add( DataClass("Fries", "ja sam Fries", R.drawable.fries))
+        food.add( DataClass("Hamburger", "ja sam Hamburger", R.drawable.hamb))
+        food.add( DataClass("Mars", "ja sam Mars", R.drawable.food_mars))
+        food.add( DataClass("Milka", "ja sam Milka", R.drawable.milka))
         food
         }
 

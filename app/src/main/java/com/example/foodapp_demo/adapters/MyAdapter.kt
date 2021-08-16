@@ -1,46 +1,35 @@
 package com.example.foodapp_demo.adapters
 
-import android.annotation.SuppressLint
-import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.*
-import com.example.foodapp_demo.R
+import androidx.recyclerview.widget.RecyclerView.Adapter
+import com.example.foodapp_demo.databinding.RowBinding
 import com.example.foodapp_demo.models.Avatar
-import com.example.foodapp_demo.models.Food
-import com.example.foodapp_demo.models.FoodImages
-import com.example.foodapp_demo.models.dataClass
+import com.example.foodapp_demo.models.DataClass
 
-open class MyAdapter(private val context: Context, private val title: List<dataClass>,private val images: List<Avatar>) :
-    Adapter<MyAdapter.MyViewHolder>() {
+open class MyAdapter(
+    private val title: List<DataClass>,
+    private val images: List<Avatar>,
+    private val onClickListener: OnClickInterface
+) : Adapter<MyAdapter.MyViewHolder>() {
 
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.row, parent, false)
-        return MyViewHolder(view)
+    interface OnClickInterface {
+        fun onClick(position: Int)
     }
 
-    override fun onBindViewHolder(
-        holder: MyViewHolder,
-        @SuppressLint("RecyclerView") position: Int
-    ) {
-        holder.textViewD.text = Food.Food[position].description
-        holder.textViewTitle.text = Food.Food[position].title
-        holder.foodImage.setImageResource(FoodImages.foodImages[position].imageFood)
-
-        holder.itemView.setOnClickListener {
-            Toast.makeText(
-                context,
-                "Odabrao si ${Food.Food[position].title}",
-                Toast.LENGTH_SHORT
-            ).show()
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+        val binding = RowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val myViewHolder = MyViewHolder(binding)
+        binding.root.setOnClickListener {
+            onClickListener.onClick(myViewHolder.adapterPosition)
         }
+        return myViewHolder
+    }
+
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        holder.bind(title[position], images[position])
 
     }
 
@@ -48,12 +37,18 @@ open class MyAdapter(private val context: Context, private val title: List<dataC
         return title.size
     }
 
-    class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var textViewD: TextView = itemView.findViewById(R.id.title1)
-        var foodImage: ImageView = itemView.findViewById(R.id.img)
-        var textViewTitle: TextView = itemView.findViewById(R.id.titleMenu)
+    class MyViewHolder(private val binding: RowBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(data: DataClass, imageId: Avatar) {
+            binding.title1.text = data.description
+            binding.titleMenu.text = data.title
+            binding.img.setImageDrawable(
+                ContextCompat.getDrawable(
+                    binding.root.context,
+                    imageId.imageFood
+                )
+            )
+        }
     }
-
 
 }
 

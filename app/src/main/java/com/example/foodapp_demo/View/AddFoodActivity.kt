@@ -1,40 +1,38 @@
 package com.example.foodapp_demo.View
 
-import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProviders
-
+import androidx.lifecycle.ViewModelProvider
 import com.example.foodapp_demo.R
-import com.example.foodapp_demo.models.Food
-import com.example.foodapp_demo.models.FoodImages
-import com.example.foodapp_demo.models.dataClass
+import com.example.foodapp_demo.databinding.ActivityAddFoodBinding
+import com.example.foodapp_demo.models.FoodGenerator
 import com.example.foodapp_demo.viewModel.MainActivityViewModel
-import java.util.*
+import com.example.foodapp_demo.viewModel.MainActivityViewModelFactory
 
 class AddFoodActivity : AppCompatActivity() {
+
     private lateinit var viewModel: MainActivityViewModel
+    private lateinit var binding: ActivityAddFoodBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_food)
-        viewModel = ViewModelProviders.of(this).get(MainActivityViewModel::class.java)
-        configureLiveDataObservers()
-        val button: Button = findViewById(R.id.addButton)
-        button.setOnClickListener {
-          finish()
+        binding = ActivityAddFoodBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        viewModel =
+            ViewModelProvider(this, MainActivityViewModelFactory(FoodGenerator()))[MainActivityViewModel::class.java]
+
+        observe()
+
+        binding.addButton.setOnClickListener {
+            finish()
         }
     }
 
+    private fun observe() {
 
-    private fun configureLiveDataObservers() {
-
-        val imageView:ImageView = findViewById(R.id.imageView)
-        imageView.setImageResource(R.drawable.food_add)
-        viewModel.getFoodLiveData().observe(this, androidx.lifecycle.Observer { food ->
+        viewModel.getFoodLiveData().observe(this, { food ->
             food?.let {
-               imageView.setImageResource(R.drawable.food1)
+                binding.imageView.setImageResource(R.drawable.food1)
             }
         })
     }
